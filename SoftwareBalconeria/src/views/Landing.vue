@@ -72,7 +72,7 @@ export default {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
     goSistema() {
-      window.open('https://sistema.maguzsa.com', '_blank')
+      window.open('https://www.maguzsa.com/login', '_blank')
       this.menuOpen = false
     }
   }
