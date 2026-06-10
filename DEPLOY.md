@@ -124,7 +124,7 @@ EMAIL_SECURE=false
 EMAIL_USER=sguzmansalas217@gmail.com
 EMAIL_PASS=tcqznisaunraxhpa
 EMAIL_DESTINO=herreriaguzsa@outlook.es
-ANTHROPIC_API_KEY=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
+ANTHROPIC_API_KEY=ver_en_servidor_en_/opt/balconeria/.env
 ALLOWED_ORIGINS=https://www.maguzsa.com
 VITE_API_URL=https://www.maguzsa.com
 ```
