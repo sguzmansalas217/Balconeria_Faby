@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"require\\('pdf-parse'\\); require\\('multer'\\); console.log\\('OK'\\)\")",
+      "Bash(npm uninstall *)",
+      "Bash(node -e ' *)",
+      "Bash(node src/db/migrate_asistencias.js)"
+    ]
+  }
+}

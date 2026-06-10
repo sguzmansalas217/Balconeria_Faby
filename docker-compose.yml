@@ -1,0 +1,68 @@
+version: "3.9"
+
+services:
+  # ─── Base de datos PostgreSQL local ───────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: balconeria_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: balconeria_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: balconeria2025
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ─── Backend API ───────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: balconeria_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: balconeria_db
+      DB_USER: postgres
+      DB_PASSWORD: balconeria2025
+      PORT: 3001
+      NODE_ENV: development
+      FIREBASE_PROJECT_ID: balconeriafaby
+      FIREBASE_ADMIN_KEY_PATH: ./firebase-admin-key.json
+      ALLOWED_ORIGINS: "http://localhost:5173,http://localhost"
+    ports:
+      - "3001:3001"
+    volumes:
+      # Monta el archivo de credenciales Firebase Admin (no se incluye en el build)
+      - ./backend/firebase-admin-key.json:/app/firebase-admin-key.json:ro
+
+  # ─── Frontend Vue.js (dev mode) ───────────────────────────────
+  frontend:
+    build:
+      context: ./SoftwareBalconeria
+      dockerfile: Dockerfile.dev
+    container_name: balconeria_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:3001
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./SoftwareBalconeria:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:

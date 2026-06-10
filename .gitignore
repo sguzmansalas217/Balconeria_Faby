@@ -1,0 +1,7 @@
+*.ppk
+*.tar
+*.tar.gz
+*.pem
+*.key
+.env
+node_modules/

@@ -1,0 +1,26 @@
+{
+  "name": "balconeria-backend",
+  "version": "1.0.0",
+  "description": "Backend API para SoftwareBalconeria - PostgreSQL puro, sin Firebase",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "migrate": "node src/db/migrate.js",
+    "seed-from-firebase": "node src/scripts/migrateFromFirebase.js"
+  },
+  "dependencies": {
+    "axios": "^1.17.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.10",
+    "pdfjs-dist": "^3.11.174",
+    "pg": "^8.13.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
